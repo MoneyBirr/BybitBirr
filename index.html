@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futuristic User Verification</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: linear-gradient(to right, #2c3e50, #3498db);
+            color: white;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+            flex-direction: column;
+        }
+        .container {
+            width: 90%;
+            max-width: 400px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 15px;
+            text-align: center;
+            position: relative;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+        }
+        .active {
+            display: flex;
+        }
+        .scanner, .eye-scanner {
+            width: 200%;
+            max-width: 320px;
+            margin-top: 20px;
+            padding: 20px;
+            background: black;
+            display: inline-block;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px cyan;
+            cursor: pointer;
+        }
+        .scanner span {
+            display: block;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to top, cyan, transparent);
+        }
+        .eye-box {
+            display: inline-block;
+            width: 75px;
+            height: 50px;
+            border-radius: 50%;
+            background: white;
+            margin: 10px;
+        }
+        .hidden {
+            display: none;
+        }
+        .futuristic-btn {
+            padding: 12px 25px;
+            font-size: 16px;
+            color: white;
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px #00ffff;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 300px;
+        }
+        @keyframes scan {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(50px); }
+            100% { transform: translateY(0); }
+        }
+        @keyframes blink {
+            0%, 100% { background: white; }
+            50% { background: black; }
+        }
+        @keyframes dollarRain {
+            from { transform: translateY(-10%); }
+            to { transform: translateY(100vh); }
+        }
+        .dollar {
+            position: absolute;
+            top: -10%;
+            font-size: 30px;
+            color: gold;
+            animation: dollarRain 5s linear infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container active" id="user-info">
+        <h2>Odeeffannoo kee guuti</h2>
+        <input type="text" id="full-name" placeholder="Maqaa Guutuu" style="width: 100%;"><br><br>
+        <input type="text" placeholder="Lakk Bilbilaa " style="width: 100%;"><br><br>
+        <input type="email" placeholder="Email" style="width: 100%;"><br><br>
+        <button class="futuristic-btn" onclick="nextSection('fingerprint')">itti fufi</button>
+    </div>
+    
+    <div class="container" id="fingerprint">
+        <h2>Ashaaraa qubaa</h2>
+        <div class="scanner" onclick="startFingerprintScan()">
+            <h3>quba kee galchi</h3>
+            <span></span>
+        </div>
+        <p id="fingerprint-status"></p>
+        <button class="futuristic-btn" onclick="nextSection('eye-scan')">itti fufi</button>
+    </div>
+    
+    <div class="container" id="eye-scan">
+        <h2>Ashaaraa ijaa</h2>
+        <button class="futuristic-btn" onclick="startEyeScan()">Ashaaraa ijaa jalqabi</button>
+        <div class="eye-scanner">
+            <div class="eye-box"></div>
+            <div class="eye-box"></div>
+        </div>
+        <p id="eye-scan-status"></p>
+        <button class="futuristic-btn" onclick="submitForm()">Submit</button>
+    </div>
+    
+    <div id="congrats" class="hidden">
+        <h1>🎉 Congratulations! 🎉</h1>
+        <h2>Odeeffannoon kee fudhatamee jira! 🚀</h2>
+        <p>🌟 Baga gammadde! 🌟</p>
+        <h2 id="user-name-display"></h2>
+    </div>
+    
+    <script>
+        function nextSection(sectionId) {
+            document.querySelector('.container.active').classList.remove('active');
+            document.getElementById(sectionId).classList.add('active');
+        }
+
+        function startFingerprintScan() {
+            let scanner = document.querySelector('.scanner span');
+            let status = document.getElementById('fingerprint-status');
+            scanner.style.animation = 'scan 1s infinite';
+            setTimeout(() => {
+                scanner.style.animation = '';
+                status.innerText = 'Scan Complete';
+            }, 3000);
+        }
+
+        function startEyeScan() {
+            let eyes = document.querySelectorAll('.eye-box');
+            let status = document.getElementById('eye-scan-status');
+            eyes.forEach(eye => eye.style.animation = 'blink 1s infinite');
+            setTimeout(() => {
+                eyes.forEach(eye => eye.style.animation = '');
+                status.innerText = 'Scan Complete';
+            }, 10000);
+        }
+
+        function submitForm() {
+            let userName = document.getElementById('full-name').value;
+            document.querySelector('.container.active').classList.remove('active');
+            document.getElementById('congrats').classList.remove('hidden');
+            if (userName) {
+                document.getElementById('user-name-display').innerText = `Dear ${userName}, welcome!`;
+            }
+            startDollarRain();
+        }
+
+        function startDollarRain() {
+            setInterval(() => {
+                let dollar = document.createElement('div');
+                dollar.className = 'dollar';
+                dollar.innerText = '💵';
+                dollar.style.left = Math.random() * 100 + 'vw';
+                document.body.appendChild(dollar);
+                setTimeout(() => dollar.remove(), 5000);
+            }, 200);
+        }
+    </script>
+</body>
+</html>
